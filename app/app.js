@@ -89,8 +89,15 @@ io.sockets.on('connection', function (newSocket) {
 function smartphoneConnected (socket) {
 	console.log('[' + socket.handshake.address.address + '] >  new smartphone connected (' + getStats() + ')');
 
+	pushStatsToController();
+
 	socket.on('iframechanged', function (iframeurl) {
 		console.log('[' + socket.handshake.address.address + '] > smartphone changed to :' + iframeurl);
+
+		var hack = getHackBySmartphoneUrl(iframeurl);
+		socket.hack = hack; //mooi wegsteken in de socket :-)
+
+		pushStatsToController();
 	});
 
 	socket.on('disconnect', function() {
@@ -125,14 +132,35 @@ function getHackById (id) {
 	return _.find(config.hacks, function (hack) { return hack.id == id; });
 }
 
+function getHackBySmartphoneUrl (url) {
+	return _.find(config.hacks, function (hack) { return hack.smartphone == url; });
+}
 
-function getStats () {
+function pushStatsToController () {
+	var usersPerHack = {};
+	for (var i = 0; i < config.hacks.length; i++) {
+		usersPerHack[config.hacks[i].id] = 0;
+	};
+
+	for (var i = 0; i < io.sockets.clients('smartphone').length; i++) {
+		var smarphoneSocket = io.sockets.clients('smartphone')[i];
+		if(smarphoneSocket.hack){
+			usersPerHack[smarphoneSocket.hack.id]++;
+		}
+	};
+
 	var stats = {
 		'smartphones' : io.sockets.clients('smartphone').length,
-		'controllers' : io.sockets.clients('controller').length
+		'controllers' : io.sockets.clients('controller').length,
+		usersPerHack  : usersPerHack
 	}
 	console.log(stats);
+
 	io.sockets.in('controller').emit('stats', stats);
+
+}
+
+function getStats () {
 	return 'smartphones: ' + io.sockets.clients('smartphone').length + ' | controllers: ' + io.sockets.clients('controller').length;
 }
 
