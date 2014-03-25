@@ -107,7 +107,13 @@ function smartphoneConnected (socket) {
 	});
 
 	socket.on('disconnect', function() {
-		console.log('[' + socket.handshake.address.address + '] > smartphone disconnected (' + getStats() + ')');
+		var ip = socket.handshake.address.address;
+
+		// in een volgende event-loop doen:
+		setTimeout(function () {
+			console.log('[' + ip + '] > smartphone disconnected (' + getStats() + ')');
+			pushStatsToController();
+		},0);
 	});
 }
 
@@ -131,7 +137,11 @@ function controllerConnected (socket) {
 
 
 	socket.on('disconnect', function() {
-		console.log('> controller disconnected (' + getStats() + ')');
+		// in een volgende event-loop doen:
+		setTimeout(function () {
+			console.log('> controller disconnected (' + getStats() + ')');
+			pushStatsToController();
+		},0);
 	});
 }
 
