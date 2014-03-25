@@ -109,6 +109,7 @@ function controllerConnected (socket) {
 		console.log(hack);
 
 		io.sockets.in('smartphone').emit('changeiframe', hack.smartphone );
+		io.sockets.in('svo').emit('changesvo', hack.svo );
 
 		state.currentHackId = hack.id;
 		statemananger.saveState(state);
@@ -126,13 +127,12 @@ function getHackById (id) {
 
 
 function getStats () {
+	var stats = {
+		'smartphones' : io.sockets.clients('smartphone').length,
+		'controllers' : io.sockets.clients('controller').length
+	}
+	console.log(stats);
+	// socket.emit()
 	return 'smartphones: ' + io.sockets.clients('smartphone').length + ' | controllers: ' + io.sockets.clients('controller').length;
 }
-
-
-
-
-
-
-
 
