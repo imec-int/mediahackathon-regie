@@ -35,6 +35,8 @@ var Controller = function (options){
 
 	var showhack = function(id) {
 		socket.emit('showhack', id);
+		$('.btn-success').addClass('btn-primary').removeClass('btn-success');
+		$("#"+id).addClass('btn-success').removeClass('btn-primary');
 	};
 
 	return {
@@ -49,5 +51,3 @@ $(function(){
 	window.controller = new Controller();
 	controller.init();
 });
-
-
