@@ -10,9 +10,16 @@ var url = require('url');
 var async = require('async');
 var fs = require('fs');
 var _ = require('underscore');
+var statemananger = require('./statemananger');
 
 var app = express();
 var serverAddress = null;
+
+var state;
+statemananger.loadState(function (err, state_) {
+	if(err) return console.log(err);
+	state = state_;
+});
 
 app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
@@ -43,8 +50,13 @@ var io = socketio.listen(server);
 io.set('log level', 0);
 
 app.get('/', function (req, res){
+	var iframeurl = '';
+	var hack = getHackById( state.currentHackId );
+	if(hack) iframeurl = hack.smartphone;
+
 	res.render('smartphone', {
-		title: 'mixapp.be'
+		title: 'mixapp.be',
+		iframeurl: iframeurl
 	});
 });
 
@@ -92,11 +104,14 @@ function controllerConnected (socket) {
 
 
 	socket.on('showhack', function (id) {
-		var hack = _.find(config.hacks, function (hack) { return hack.id == id; });
+		var hack = getHackById(id);
 		console.log('> showing hack:');
 		console.log(hack);
 
 		io.sockets.in('smartphone').emit('changeiframe', hack.smartphone );
+
+		state.currentHackId = hack.id;
+		statemananger.saveState(state);
 	});
 
 
@@ -105,10 +120,19 @@ function controllerConnected (socket) {
 	});
 }
 
+function getHackById (id) {
+	return _.find(config.hacks, function (hack) { return hack.id == id; });
+}
+
 
 function getStats () {
 	return 'smartphones: ' + io.sockets.clients('smartphone').length + ' | controllers: ' + io.sockets.clients('controller').length;
 }
+
+
+
+
+
 
 
 
