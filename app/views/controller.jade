@@ -6,7 +6,7 @@ html
 		link(type='text/fonts', rel='stylesheet', src="/vendor/Roboto")
 
 		link(rel='stylesheet', href="/stylesheets/controller.css")
-		link(rel='stylesheet', href="/vendor/bootstrap.min.css")
+		link(rel='stylesheet', href="/vendor/css/bootstrap.min.css")
 		script(type='text/javascript', src='/vendor/jquery-min.js')
 		script(type='text/javascript', src='/vendor/jquery.tmpl.min.js')
 		script(type='text/javascript', src='/socket.io/socket.io.js')
@@ -17,9 +17,14 @@ html
 		.container
 
 			.row
-					h1 Hack Controller
+				h1 Hack Controller
 			.hacks.row
 				each hack in hacks
 					.col-md-2
 						button.hack.btn.btn-lg.btn-primary(id='#{hack.id}', onClick='controller.showhack("#{hack.id}");')
 							span #{hack.title}
+			.row
+				h1 Hack status
+			.row#phoneicon
+				span.glyphicon.glyphicon-phone
+				span#connectedphones

@@ -132,7 +132,7 @@ function getStats () {
 		'controllers' : io.sockets.clients('controller').length
 	}
 	console.log(stats);
-	// socket.emit()
+	io.sockets.in('controller').emit('stats', stats);
 	return 'smartphones: ' + io.sockets.clients('smartphone').length + ' | controllers: ' + io.sockets.clients('controller').length;
 }
 

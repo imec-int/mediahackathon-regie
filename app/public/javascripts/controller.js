@@ -27,6 +27,9 @@ var Controller = function (options){
 		socket.on('connect', function() {
 			socket.emit('room', 'controller');
 		});
+		socket.on('stats', function(stats) {
+			$('#connectedphones').html(stats.smartphones)
+		});
 	};
 
 	var addHandlers = function () {
