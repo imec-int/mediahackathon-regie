@@ -8,7 +8,7 @@ exports.hacks = [
 	},
 
 	{
-		id    : 'phiemel',
+		id         : 'phiemel',
 		title      : 'Phiemel',
 		smartphone : 'http://www.iminds.be/',
 		projection : 'http://www.iminds.be/projection'

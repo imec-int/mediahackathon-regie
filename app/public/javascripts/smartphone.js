@@ -32,7 +32,12 @@ var Smartphone = function (options){
 	};
 
 	var onChangeiframe = function (url) {
-		$('iframe').attr('src', url);
+		// random delay zodat niet iedereen tegelijk veranderd van pagina:
+		var delay = Math.random() * 3000;
+
+		setTimeout(function () {
+			$('iframe').attr('src', url);
+		},delay);
 	};
 
 	return {
