@@ -16,4 +16,7 @@ html
 	body
 		| regie app...
 
+		.hacks
+			each hack in hacks
+				button.hack(onClick='controller.showhack("#{hack.id}");') #{hack.title}
 

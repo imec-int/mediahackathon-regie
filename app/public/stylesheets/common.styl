@@ -1,8 +1,11 @@
+shadowcolor = #e0e0e0
 offwhite = #F7F7F4
 offblack = #333333
-qgreen = green
-qred = #e60800
-qbackgroundcolor = #f0f0f0
+offblacktransparant = rgba(51,51,51,0.85)
+offwhitetransparant = rgba(255,255,255,0.95)
+bgcolor = #efeff4
+selectedcolor = #a9ba26
+lightred = #ff3b30
 
 *
 	margin 0
@@ -20,20 +23,46 @@ html, body
 	height 100%
 
 body
-	background-color offblack
+	background-color offwhite
 	position relative
-	color qred
+	color offblack
 	font-size 16px
 
 a
-	color inherit
-	margin 0
-	padding 0
+	text-decoration none
+	color gray
 
-a, .link
+.link
 	text-decoration underline
-a:hover, .link:hover
+.link:hover
 	text-decoration none
 
 
+// **********************
+// ****** BUTTONS *******
+// **********************
 
+button
+	font-family 'Roboto', sans-serif
+
+.button, button
+	-webkit-appearance none
+	border 1px #AAA solid
+	background #F0F0F0
+	color #666
+	cursor pointer
+	font-size 13px
+	font-weight bold
+	height 32px
+	line-height 25px
+	min-width 32px
+	text-align center
+	display inline-block
+	cursor pointer
+	padding 0px 4px
+
+.button.highlight, button.highlight
+	background-color selectedcolor
+
+.button:disabled, button:disabled
+	opacity 0.4

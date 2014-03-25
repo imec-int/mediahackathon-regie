@@ -9,6 +9,7 @@
     "jade": "*",
     "stylus": "~0.40.3",
     "socket.io": "~0.9.16",
-    "async": "~0.2.9"
+    "async": "~0.2.9",
+    "underscore": "~1.6.0"
   }
 }

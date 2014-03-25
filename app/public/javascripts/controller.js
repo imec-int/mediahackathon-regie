@@ -33,15 +33,20 @@ var Controller = function (options){
 
 	};
 
+	var showhack = function(id) {
+		socket.emit('showhack', id);
+	};
+
 	return {
-		init: init
+		init: init,
+		showhack: showhack
 	};
 };
 
 
 
 $(function(){
-	var controller = new Controller();
+	window.controller = new Controller();
 	controller.init();
 });
 

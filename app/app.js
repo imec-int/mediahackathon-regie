@@ -9,6 +9,7 @@ var socketio = require('socket.io');
 var url = require('url');
 var async = require('async');
 var fs = require('fs');
+var _ = require('underscore');
 
 var app = express();
 var serverAddress = null;
@@ -49,7 +50,8 @@ app.get('/', function (req, res){
 
 app.get('/regie', function (req, res){
 	res.render('controller', {
-		title: 'mixapp.be | Regie'
+		title: 'mixapp.be | Regie',
+		hacks: config.hacks
 	});
 });
 
@@ -89,9 +91,12 @@ function controllerConnected (socket) {
 	console.log('> controller connected (' + getStats() + ')');
 
 
-	socket.on('event', function (data) {
-
+	socket.on('showhack', function (id) {
+		var hack = _.find(config.hacks, function (hack) { return hack.id == id; });
+		console.log('> showing hack:');
+		console.log(hack);
 	});
+
 
 	socket.on('disconnect', function() {
 		console.log('> controller disconnected (' + getStats() + ')');
