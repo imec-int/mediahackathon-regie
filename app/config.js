@@ -16,8 +16,8 @@ exports.hacks = [
 	{
 		id         : 'hexamusic',
 		title      : 'Hexamusic',
-		smartphone : 'http://www.reddit.com/',
-		projection : 'http://www.reddit.com/projection'
+		smartphone : 'http://www.deredactie.be/',
+		projection : 'http://www.deredactie.be/projection'
 	},
 
 	{
