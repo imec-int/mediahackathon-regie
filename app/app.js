@@ -75,14 +75,14 @@ io.sockets.on('connection', function (newSocket) {
 });
 
 function smartphoneConnected (socket) {
-	console.log('> new smartphone connected (' + getStats() + ')');
+	console.log('[' + socket.handshake.address.address + '] >  new smartphone connected (' + getStats() + ')');
 
 	socket.on('iframechanged', function (iframeurl) {
-		console.log('> smartphone changed to :' + iframeurl);
+		console.log('[' + socket.handshake.address.address + '] > smartphone changed to :' + iframeurl);
 	});
 
 	socket.on('disconnect', function() {
-		console.log('> smartphone disconnected (' + getStats() + ')');
+		console.log('[' + socket.handshake.address.address + '] > smartphone disconnected (' + getStats() + ')');
 	});
 }
 
