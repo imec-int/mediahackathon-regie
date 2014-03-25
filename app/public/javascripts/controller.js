@@ -29,6 +29,13 @@ var Controller = function (options){
 		});
 		socket.on('stats', function(stats) {
 			$('#connectedphones').html(stats.smartphones)
+			console.log(stats.usersPerHack)
+			$('#eplepticstats').html(stats.usersPerHack.epleptic)
+			$('#phiemelstats').html(stats.usersPerHack.phiemel)
+			$('#hexamusicstats').html(stats.usersPerHack.hexamusic)
+			$('#sounddefenderstats').html(stats.usersPerHack.sounddefender)
+			$('#mediagoostats').html(stats.usersPerHack.mediagoo)
+			$('#oscilloscoopstats').html(stats.usersPerHack.oscilloscoop)
 		});
 	};
 
