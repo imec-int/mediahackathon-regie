@@ -67,6 +67,11 @@ app.get('/regie', function (req, res){
 	});
 });
 
+app.get('/svo', function (req, res){
+	res.render('svo', {
+		title: 'mixapp.be | svo',
+	});
+});
 
 io.sockets.on('connection', function (newSocket) {
 	// let's define 2 rooms: smartphone & controller
@@ -161,4 +166,3 @@ function pushStatsToController () {
 function getStats () {
 	return 'smartphones: ' + io.sockets.clients('smartphone').length + ' | controllers: ' + io.sockets.clients('controller').length;
 }
-
