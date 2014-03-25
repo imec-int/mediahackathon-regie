@@ -95,6 +95,8 @@ function controllerConnected (socket) {
 		var hack = _.find(config.hacks, function (hack) { return hack.id == id; });
 		console.log('> showing hack:');
 		console.log(hack);
+
+		io.sockets.in('smartphone').emit('changeiframe', hack.smartphone );
 	});
 
 

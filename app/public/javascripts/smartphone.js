@@ -27,10 +27,12 @@ var Smartphone = function (options){
 		socket.on('connect', function() {
 			socket.emit('room', 'smartphone');
 		});
+
+		socket.on('changeiframe', onChangeiframe);
 	};
 
-	var addHandlers = function () {
-
+	var onChangeiframe = function (url) {
+		$('iframe').attr('src', url);
 	};
 
 	return {
