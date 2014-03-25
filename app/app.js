@@ -51,11 +51,15 @@ io.set('log level', 0);
 
 app.get('/', function (req, res){
 	var iframeurl = '';
+	var hacktitle = '';
 	var hack = getHackById( state.currentHackId );
-	if(hack) iframeurl = hack.smartphone;
+	if(hack){
+		iframeurl = hack.smartphone;
+		hacktitle = hack.title;
+	}
 
 	res.render('smartphone', {
-		title: 'mixapp.be',
+		title: 'mixapp.be | ' + hacktitle,
 		iframeurl: iframeurl
 	});
 });
@@ -118,7 +122,7 @@ function controllerConnected (socket) {
 		console.log('> showing hack:');
 		console.log(hack);
 
-		io.sockets.in('smartphone').emit('changeiframe', hack.smartphone );
+		io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title} );
 		io.sockets.in('svo').emit('changesvo', hack.svo );
 
 		state.currentHackId = hack.id;

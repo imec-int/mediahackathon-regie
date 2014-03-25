@@ -38,12 +38,13 @@ var Smartphone = function (options){
 		});
 	}
 
-	var onChangeiframe = function (url) {
+	var onChangeiframe = function (data) {
 		// random delay zodat niet iedereen tegelijk veranderd van pagina:
 		var delay = Math.random() * 3000;
 
 		setTimeout(function () {
-			$iframe.attr('src', url);
+			$iframe.attr('src', data.url);
+			$('head>title').text('mixapp.be | ' + data.title);
 		},delay);
 	};
 
