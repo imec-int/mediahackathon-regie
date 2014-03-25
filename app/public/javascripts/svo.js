@@ -30,7 +30,7 @@ var Svo = function (options){
 
     socket.on('changesvo', function(svo) {
       console.log(svo);
-      $('#main').attr('src', svo.img);
+      $('#main').attr('src', svo);
     });
   };
 
