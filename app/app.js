@@ -71,17 +71,14 @@ app.get('/regie', function (req, res){
 io.sockets.on('connection', function (newSocket) {
 	// let's define 2 rooms: smartphone & controller
 	newSocket.on('room', function (room) {
+		newSocket.join(room);
 
 		if( room == 'smartphone'){
 			smartphoneConnected(newSocket);
-			// enter room:
-			newSocket.join(room);
 		}
 
 		if( room == 'controller' ){
 			controllerConnected(newSocket);
-			// enter room:
-			newSocket.join(room);
 		}
 	});
 });
@@ -92,7 +89,7 @@ function smartphoneConnected (socket) {
 	pushStatsToController();
 
 	socket.on('iframechanged', function (iframeurl) {
-		console.log('[' + socket.handshake.address.address + '] > smartphone changed to :' + iframeurl);
+		// console.log('[' + socket.handshake.address.address + '] > smartphone changed to :' + iframeurl);
 
 		var hack = getHackBySmartphoneUrl(iframeurl);
 		socket.hack = hack; //mooi wegsteken in de socket :-)
@@ -109,6 +106,7 @@ function smartphoneConnected (socket) {
 function controllerConnected (socket) {
 	console.log('> controller connected (' + getStats() + ')');
 
+	pushStatsToController();
 
 	socket.on('showhack', function (id) {
 		var hack = getHackById(id);
