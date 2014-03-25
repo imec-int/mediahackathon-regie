@@ -77,8 +77,8 @@ io.sockets.on('connection', function (newSocket) {
 function smartphoneConnected (socket) {
 	console.log('> new smartphone connected (' + getStats() + ')');
 
-	socket.on('event', function (data) {
-
+	socket.on('iframechanged', function (iframeurl) {
+		console.log('> smartphone changed to :' + iframeurl);
 	});
 
 	socket.on('disconnect', function() {

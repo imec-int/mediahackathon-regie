@@ -1,6 +1,7 @@
 var Smartphone = function (options){
 
 	var socket = null;
+	var $iframe = $('iframe');
 
 	var init = function (){
 		console.log("init");
@@ -31,12 +32,18 @@ var Smartphone = function (options){
 		socket.on('changeiframe', onChangeiframe);
 	};
 
+	var addHandlers = function () {
+		$iframe.on('load', function (event) {
+			socket.emit('iframechanged', $iframe.attr('src'));
+		});
+	}
+
 	var onChangeiframe = function (url) {
 		// random delay zodat niet iedereen tegelijk veranderd van pagina:
 		var delay = Math.random() * 3000;
 
 		setTimeout(function () {
-			$('iframe').attr('src', url);
+			$iframe.attr('src', url);
 		},delay);
 	};
 
