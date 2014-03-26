@@ -2,47 +2,47 @@ exports.hacks = [
 	{
 		id         : 'epleptic',
 		title      : 'Epleptic',
-		smartphone : 'http://www.epleptic.be/',
-		projection : 'http://www.epleptic.be/projection',
+		smartphone : 'http://10.100.1.3:3001',
+		projection : '',
 		svo        : '/images/svo/hacketon_epleptic.png'
 	},
 
 	{
 		id         : 'phiemel',
 		title      : 'Phiemel',
-		smartphone : 'http://www.iminds.be/',
-		projection : 'http://www.iminds.be/projection',
+		smartphone : 'http://10.100.1.3:3004/',
+		projection : '',
 		svo        : '/images/svo/hacketon_phiemel.png'
 	},
 
 	{
 		id         : 'hexamusic',
 		title      : 'Hexamusic',
-		smartphone : 'http://www.deredactie.be/',
-		projection : 'http://www.deredactie.be/projection',
+		smartphone : 'http://10.100.1.3:3002/smartphone/index2.html',
+		projection : '',
 		svo        : '/images/svo/hacketon_hexamusic.png'
 	},
 
 	{
 		id         : 'sounddefender',
 		title      : 'Sound Defender',
-		smartphone : 'http://www.nieuwsblad.be/',
-		projection : 'http://www.nieuwsblad.be/projection',
+		smartphone : 'http://10.100.1.3:3005/',
+		projection : '',
 		svo        : '/images/svo/hacketon_sounddefender.png'
 	},
 
 	{
 		id         : 'mediagoo',
 		title      : 'MediaGoo',
-		smartphone : 'http://www.hln.be/',
-		projection : 'http://www.hln.be/projection',
+		smartphone : 'http://10.100.1.3:3003/',
+		projection : '',
 		svo        : '/images/svo/hacketon_mediagoo.png'
 	},
 	{
 		id         : 'oscilloscoop',
 		title      : 'oscilloscoop',
-		smartphone : 'http://www.hln.be/',
-		projection : 'http://www.hln.be/projection',
+		smartphone : 'http://10.100.1.3:3001', //epleptic
+		projection : '',
 		svo        : '/images/svo/hacketon_oscilloscope.png'
 	}
 ]
