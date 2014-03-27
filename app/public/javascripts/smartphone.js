@@ -36,6 +36,9 @@ var Smartphone = function (options){
 		$iframe.on('load', function (event) {
 			socket.emit('iframechanged', $iframe.attr('src'));
 		});
+		$('#overlay').on('click', function (event) {
+			$('#overlay').hide();
+		});
 	}
 
 	var onChangeiframe = function (data) {
