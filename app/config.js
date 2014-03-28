@@ -4,7 +4,8 @@ exports.hacks = [
 		title      : 'Epleptic',
 		smartphone : 'http://10.100.1.3:3001',
 		projection : '',
-		svo        : '/images/svo/hacketon_epleptic.png'
+		svo       : ['/images/svo/Epleptic_scherm1.png','/images/svo/Epleptic_scherm2.png'],
+		svostate	 : 0
 	},
 
 	{

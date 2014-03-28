@@ -143,10 +143,13 @@ function controllerConnected (socket) {
 		var hack = getHackById(id);
 		// console.log('> showing hack:');
 		// console.log(hack);
+		if(hack.svostate ==0){
 		iolight.emit('hackevent', id);
 		io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title} );
-		io.sockets.in('svo').emit('changesvo', hack.svo );
-
+		}
+		io.sockets.in('svo').emit('changesvo', hack.svo[hack.svostate]);
+		hack.svostate++;
+		if(hack.svostate ==2){hack.svostate=0;}
 		state.currentHackId = hack.id;
 		statemananger.saveState(state);
 	});
