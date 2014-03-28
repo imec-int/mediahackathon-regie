@@ -6,12 +6,13 @@ var path = require('path');
 var utils = require('./utils');
 var config = require('./config');
 var socketio = require('socket.io');
+var lightssocket = require('socket.io-client');
 var url = require('url');
 var async = require('async');
 var fs = require('fs');
 var _ = require('underscore');
 var statemananger = require('./statemananger');
-
+var util = require('util');
 var app = express();
 var serverAddress = null;
 
@@ -48,6 +49,21 @@ var server = http.createServer(app).listen(app.get('port'), function (){
 // Socket IO
 var io = socketio.listen(server);
 io.set('log level', 0);
+//lights socket server connect
+
+var initSocket = function (){
+	// if(lightssocket) return; // already initialized
+	iolight = lightssocket.connect('127.0.0.1:3001', function(){
+
+	});
+
+	iolight.on('connect', function(){
+			console.log('lightssocket connected');
+		});
+	iolight.on('disconnect', function(){
+			console.log('lightssocket disconnected');
+		});
+};
 
 app.get('/', function (req, res){
 	var iframeurl = '';
@@ -125,9 +141,9 @@ function controllerConnected (socket) {
 
 	socket.on('showhack', function (id) {
 		var hack = getHackById(id);
-		console.log('> showing hack:');
-		console.log(hack);
-
+		// console.log('> showing hack:');
+		// console.log(hack);
+		iolight.emit('hackevent', id);
 		io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title} );
 		io.sockets.in('svo').emit('changesvo', hack.svo );
 
@@ -177,6 +193,7 @@ function pushStatsToController () {
 
 }
 
+initSocket();
 function getStats () {
 	return 'smartphones: ' + io.sockets.clients('smartphone').length + ' | controllers: ' + io.sockets.clients('controller').length;
 }
