@@ -136,11 +136,10 @@ function smartphoneConnected (socket) {
 
 function controllerConnected (socket) {
 	console.log('> controller connected (' + getStats() + ')');
-
 	pushStatsToController();
-
 	socket.on('showhack', function (id) {
 		var hack = getHackById(id);
+		console.log("number of SVOs = " + hack.svo.length);
 		// console.log('> showing hack:');
 		// console.log(hack);
 		if(hack.svostate ==0){
@@ -148,8 +147,10 @@ function controllerConnected (socket) {
 		io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title} );
 		}
 		io.sockets.in('svo').emit('changesvo', hack.svo[hack.svostate]);
-		hack.svostate++;
-		if(hack.svostate ==2){hack.svostate=0;}
+		if(hack.svo.length>1){
+			hack.svostate++;
+			if(hack.svostate ==2){hack.svostate=0;}
+		}
 		state.currentHackId = hack.id;
 		statemananger.saveState(state);
 	});
