@@ -1,5 +1,5 @@
 var Controller = function (options){
-
+	var svostate = 0;
 	var socket = null;
 
 	var init = function (){
@@ -47,6 +47,7 @@ var Controller = function (options){
 		socket.emit('showhack', id);
 		$('.btn-success').addClass('btn-primary').removeClass('btn-success');
 		$("#"+id).addClass('btn-success').removeClass('btn-primary');
+
 	};
 
 	return {

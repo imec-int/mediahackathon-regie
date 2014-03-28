@@ -48,6 +48,8 @@ var Smartphone = function (options){
 		setTimeout(function () {
 			$iframe.attr('src', data.url);
 			$('head>title').text('mixapp.be | ' + data.title);
+			console.log(data);
+			$('#overlay').show();
 		},delay);
 	};
 
@@ -62,5 +64,3 @@ $(function(){
 	var smartphone = new Smartphone();
 	smartphone.init();
 });
-
-
