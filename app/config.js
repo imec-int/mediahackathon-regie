@@ -2,7 +2,7 @@ exports.hacks = [
 	{
 		id         : 'epleptic',
 		title      : 'Epleptic',
-		smartphone : 'http://10.100.1.3:3001',
+		smartphone : 'http://10.100.1.3:3006',
 		projection : '',
 		svo       : ['/images/svo/Epleptic_scherm1.png','/images/svo/Epleptic_scherm2.png'],
 		svostate	 : 0
@@ -46,7 +46,7 @@ exports.hacks = [
 	{
 		id         : 'oscilloscoop',
 		title      : 'oscilloscoop',
-		smartphone : 'http://10.100.1.3:3001', //epleptic
+		smartphone : 'http://10.100.1.3:3007', //epleptic
 		projection : '',
 		svo        : ['/images/svo/Oscilloscope_scherm1.png'],
 		svostate	 : 0
