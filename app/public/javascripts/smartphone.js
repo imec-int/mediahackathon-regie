@@ -48,7 +48,7 @@ var Smartphone = function (options){
 		setTimeout(function () {
 			$iframe.attr('src', data.url);
 			$('head>title').text('mixapp.be | ' + data.title);
-			console.log(data);
+			$('#overlayimg').attr('src', '/images/overlay/' +data.id+ '.png')
 			$('#overlay').show();
 		},delay);
 	};
