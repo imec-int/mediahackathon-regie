@@ -38,7 +38,7 @@ exports.hacks = [
 	{
 		id         : 'mediagoo',
 		title      : 'MediaGoo',
-		smartphone : 'http://deredactie.be',
+		smartphone : 'http://10.100.1.33:3000',
 		overlay    : '/images/overlay/mediagoo.png',
 		svo        : ['/images/svo/Mediagoo_scherm1.png','/images/svo/Mediagoo_scherm2.png'],
 		svostate   : 0
