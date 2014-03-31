@@ -9,9 +9,13 @@ var Smartphone = function (options){
 		addHandlers();
 
 		$(window).on("load resize orientationchange", function (event) {
-			$iframe.height( window.height() );
-			$iframe.width( window.width() );
+			setIframeSize();
 		});
+	};
+
+	var setIframeSize = function () {
+		$iframe.height( window.height() );
+		$iframe.width( window.width() );
 	};
 
 	var initSocket = function (){
