@@ -7,6 +7,11 @@ var Smartphone = function (options){
 		console.log("init");
 		initSocket();
 		addHandlers();
+
+		$(window).on("load resize orientationchange", function (event) {
+			$iframe.height( window.height() );
+			$iframe.width( window.width() );
+		});
 	};
 
 	var initSocket = function (){
