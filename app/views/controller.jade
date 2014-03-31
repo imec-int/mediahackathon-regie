@@ -26,6 +26,13 @@ html
 							span.badge.pull-right(id='#{hack.id}'+'stats')
 			.row
 				h1 Hack status
-			.row#phoneicon
-				span.glyphicon.glyphicon-phone
-				span#connectedphones
+			.row
+				#phoneicon.col-xs-4
+					span.glyphicon.glyphicon-phone
+					span#connectedphones
+				#killlights.col-xs-4
+					button.btn.btn-large.btn-danger
+						span NO lights
+				#lights.col-xs-4
+					button.btn.btn-large.btn-warning
+						span lights

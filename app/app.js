@@ -142,7 +142,7 @@ function controllerConnected (socket) {
 		console.log("number of SVOs = " + hack.svo.length);
 		// console.log('> showing hack:');
 		// console.log(hack);
-		if(hack.svostate ==0){
+		if(hack.svostate == 0){
 		iolight.emit('hackevent', id);
 		io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title, id: hack.id} );
 		}
