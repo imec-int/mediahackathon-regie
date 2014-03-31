@@ -140,6 +140,9 @@ function smartphoneConnected (socket) {
 function controllerConnected (socket) {
 	console.log('> controller connected (' + getStats() + ')');
 	pushStatsToController();
+	socket.on('switchevent', function (id) {
+		iolight.emit('switchevent', id);
+	});
 	socket.on('showhack', function (id) {
 		var hack = getHackById(id);
 		console.log("number of SVOs = " + hack.svo.length);

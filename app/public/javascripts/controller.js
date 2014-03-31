@@ -1,12 +1,12 @@
 var Controller = function (options){
 	var svostate = 0;
 	var socket = null;
-	var lightsocket = null;
+	// var lightsocket = null;
 
 	var init = function (){
 		console.log("init");
 		initSocket();
-		initLightSocket();
+		// initLightSocket();
 		addHandlers();
 	};
 
@@ -41,27 +41,30 @@ var Controller = function (options){
 		});
 	};
 
-	var initLightSocket = function (){
-		if(lightsocket) return; // already initialized
-		lightsocket = io.connect('127.0.0.1:9000');
-		lightsocket.on('reconnecting', function(seconds){
-			console.log('reconnecting  light in ' + seconds + ' seconds');
-		});
-		lightsocket.on('reconnect', function(){
-			console.log('light reconnected');
-		});
-		lightsocket.on('reconnect_failed', function(){
-			console.log('light failed to reconnect');
-		});
-	};
+
+	// var initLightSocket = function (){
+	// 	if(lightsocket) return; // already initialized
+	// 	lightsocket = io.connect('127.0.0.1:9000');
+	// 	lightsocket.on('reconnecting', function(seconds){
+	// 		console.log('reconnecting  light in ' + seconds + ' seconds');
+	// 	});
+	// 	lightsocket.on('reconnect', function(){
+	// 		console.log('light reconnected');
+	// 	});
+	// 	lightsocket.on('reconnect_failed', function(){
+	// 		console.log('light failed to reconnect');
+	// 	});
+	// };
+
 
 	var addHandlers = function () {
-		$('#killlights').click(function(){lightsocket.emit('switchevent', 'no');});
+		$('#killlights').click(function(){socket.emit('switchevent', 'no');});
+		$('#lights').click(function(){socket.emit('switchevent', 'lights');});
 	};
 
 	var showhack = function(id) {
 		socket.emit('showhack', id);
-		lightsocket.emit('switchevent', id);
+		// lightsocket.emit('switchevent', id);
 		$('.btn-success').addClass('btn-primary').removeClass('btn-success');
 		$("#"+id).addClass('btn-success').removeClass('btn-primary');
 
