@@ -53,7 +53,7 @@ io.set('log level', 0);
 
 var initSocket = function (){
 	// if(lightssocket) return; // already initialized
-	iolight = lightssocket.connect('127.0.0.1:3001', function(){
+	iolight = lightssocket.connect('127.0.0.1:9000', function(){
 
 	});
 
