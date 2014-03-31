@@ -58,11 +58,11 @@ var initSocket = function (){
 	});
 
 	iolight.on('connect', function(){
-			console.log('lightssocket connected');
-		});
+		console.log('lightssocket connected');
+	});
 	iolight.on('disconnect', function(){
-			console.log('lightssocket disconnected');
-		});
+		console.log('lightssocket disconnected');
+	});
 };
 
 app.get('/', function (req, res){
