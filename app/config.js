@@ -1,5 +1,13 @@
 exports.hacks = [
 	{
+		id         : 'voting',
+		title      : 'voting app',
+		smartphone : 'http://mixapp.be:8080',
+		overlay    : null,
+		svo        : ['/images/svo/Oscilloscope_scherm1.png'],
+		svostate   : 0
+	},
+	{
 		id         : 'epleptic',
 		title      : 'Epleptic',
 		smartphone : 'http://10.100.1.36:7000',
@@ -48,14 +56,6 @@ exports.hacks = [
 		title      : 'oscilloscoop',
 		smartphone : '/oschack',
 		overlay    : '/images/overlay/oscilloscope.png',
-		svo        : ['/images/svo/Oscilloscope_scherm1.png'],
-		svostate   : 0
-	},
-	{
-		id         : 'voting',
-		title      : 'voting app',
-		smartphone : 'http://mixapp.be:8080',
-		overlay    : null,
 		svo        : ['/images/svo/Oscilloscope_scherm1.png'],
 		svostate   : 0
 	}
