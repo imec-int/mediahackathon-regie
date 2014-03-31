@@ -43,7 +43,7 @@ var Controller = function (options){
 
 	var initLightSocket = function (){
 		if(lightsocket) return; // already initialized
-		lightsocket = io.connect('127.0.0.1:3001');
+		lightsocket = io.connect('127.0.0.1:9000');
 		lightsocket.on('reconnecting', function(seconds){
 			console.log('reconnecting  light in ' + seconds + ' seconds');
 		});
