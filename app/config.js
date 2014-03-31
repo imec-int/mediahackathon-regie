@@ -2,7 +2,7 @@ exports.hacks = [
 	{
 		id         : 'epleptic',
 		title      : 'Epleptic',
-		smartphone : 'http://10.100.1.33:7000',
+		smartphone : 'http://10.100.1.36:7000',
 		overlay    : '/images/overlay/epleptic.png',
 		svo        : ['/images/svo/Epleptic_scherm1.png','/images/svo/Epleptic_scherm2.png'],
 		svostate   : 0
