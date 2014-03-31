@@ -96,6 +96,12 @@ app.get('/svo', function (req, res){
 	});
 });
 
+app.get('/oschack', function (req, res){
+	res.render('oschack', {
+		title: 'mixapp.be | oscilloscoop',
+	});
+});
+
 io.sockets.on('connection', function (newSocket) {
 	// let's define 2 rooms: smartphone & controller
 	newSocket.on('room', function (room) {
@@ -134,6 +140,8 @@ function smartphoneConnected (socket) {
 			pushStatsToController();
 		},0);
 	});
+
+
 }
 
 
@@ -162,6 +170,13 @@ function controllerConnected (socket) {
 		}
 		state.currentHackId = hack.id;
 		statemananger.saveState(state);
+	});
+
+	socket.on('resethack', function(id) {
+			console.log('resetting state of ' + id);
+			var hack = getHackById(id);
+			hack.svostate = 0;
+			console.log(hack);
 	});
 
 

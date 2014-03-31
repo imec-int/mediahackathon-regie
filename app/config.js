@@ -46,7 +46,7 @@ exports.hacks = [
 	{
 		id         : 'oscilloscoop',
 		title      : 'oscilloscoop',
-		smartphone : 'http://deredactie.be',
+		smartphone : 'http://localhost:3000/oschack',
 		overlay    : '/images/overlay/oscilloscope.png',
 		svo        : ['/images/svo/Oscilloscope_scherm1.png'],
 		svostate   : 0

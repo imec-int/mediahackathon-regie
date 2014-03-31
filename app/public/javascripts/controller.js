@@ -60,6 +60,8 @@ var Controller = function (options){
 	var addHandlers = function () {
 		$('#killlights').click(function(){socket.emit('switchevent', 'no');});
 		$('#lights').click(function(){socket.emit('switchevent', 'lights');});
+
+
 	};
 
 	var showhack = function(id) {
@@ -70,6 +72,11 @@ var Controller = function (options){
 
 	};
 
+	var statereset = function(id){
+		socket.emit('resethack', id);
+
+	}
+
 	// var nolight = function() {
 	// 	lightsocket.emit('switchevent', 'no');
 	// };
@@ -78,7 +85,8 @@ var Controller = function (options){
 
 	return {
 		init: init,
-		showhack: showhack
+		showhack: showhack,
+		statereset: statereset
 	};
 };
 
