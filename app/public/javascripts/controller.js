@@ -60,7 +60,7 @@ var Controller = function (options){
 	var addHandlers = function () {
 		$('#killlights').click(function(){socket.emit('switchevent', 'no');});
 		$('#lights').click(function(){socket.emit('switchevent', 'lights');});
-
+		$('#voting').click(function(){socket.emit('showhack', 'voting');});
 
 	};
 

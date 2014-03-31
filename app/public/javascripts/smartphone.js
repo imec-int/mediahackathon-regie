@@ -48,8 +48,13 @@ var Smartphone = function (options){
 		setTimeout(function () {
 			$iframe.attr('src', data.url);
 			$('head>title').text('mixapp.be | ' + data.title);
-			$('#overlayimg').attr('src', data.overlay)
-			$('#overlay').show();
+			if(data.overlay){
+				console.log(data.overlay);
+				$('#overlayimg').attr('src', data.overlay)
+				$('#overlay').show();
+			} else {
+				$('#overlay').hide();
+			}
 		},delay);
 	};
 
