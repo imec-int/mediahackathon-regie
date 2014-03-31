@@ -68,15 +68,18 @@ var initSocket = function (){
 app.get('/', function (req, res){
 	var iframeurl = '';
 	var hacktitle = '';
+	var overlay = '';
 	var hack = getHackById( state.currentHackId );
 	if(hack){
 		iframeurl = hack.smartphone;
 		hacktitle = hack.title;
+		overlay   = hack.overlay;
 	}
 
 	res.render('smartphone', {
 		title: 'mixapp.be | ' + hacktitle,
-		iframeurl: iframeurl
+		iframeurl: iframeurl,
+		overlay: overlay
 	});
 });
 
