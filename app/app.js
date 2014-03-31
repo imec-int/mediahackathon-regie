@@ -143,10 +143,12 @@ function controllerConnected (socket) {
 		// console.log('> showing hack:');
 		// console.log(hack);
 		if(hack.svostate ==0){
-		iolight.emit('hackevent', id);
-		io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title, id: hack.id} );
+			iolight.emit('hackevent', id);
+			io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title, id: hack.id, overlay: hack.overlay} );
 		}
+
 		io.sockets.in('svo').emit('changesvo', hack.svo[hack.svostate]);
+
 		if(hack.svo.length>1){
 			hack.svostate++;
 			if(hack.svostate ==2){hack.svostate=0;}
