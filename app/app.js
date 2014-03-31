@@ -53,30 +53,33 @@ io.set('log level', 0);
 
 var initSocket = function (){
 	// if(lightssocket) return; // already initialized
-	iolight = lightssocket.connect('127.0.0.1:3001', function(){
+	iolight = lightssocket.connect('127.0.0.1:9000', function(){
 
 	});
 
 	iolight.on('connect', function(){
-			console.log('lightssocket connected');
-		});
+		console.log('lightssocket connected');
+	});
 	iolight.on('disconnect', function(){
-			console.log('lightssocket disconnected');
-		});
+		console.log('lightssocket disconnected');
+	});
 };
 
 app.get('/', function (req, res){
 	var iframeurl = '';
 	var hacktitle = '';
+	var overlay = '';
 	var hack = getHackById( state.currentHackId );
 	if(hack){
 		iframeurl = hack.smartphone;
 		hacktitle = hack.title;
+		overlay   = hack.overlay;
 	}
 
 	res.render('smartphone', {
 		title: 'mixapp.be | ' + hacktitle,
-		iframeurl: iframeurl
+		iframeurl: iframeurl,
+		overlay: overlay
 	});
 });
 
@@ -142,11 +145,14 @@ function controllerConnected (socket) {
 		console.log("number of SVOs = " + hack.svo.length);
 		// console.log('> showing hack:');
 		// console.log(hack);
+
 		if(hack.svostate == 0){
-		iolight.emit('hackevent', id);
-		io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title, id: hack.id} );
+			iolight.emit('hackevent', id);
+			io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title, id: hack.id, overlay: hack.overlay} );
 		}
+
 		io.sockets.in('svo').emit('changesvo', hack.svo[hack.svostate]);
+
 		if(hack.svo.length>1){
 			hack.svostate++;
 			if(hack.svostate ==2){hack.svostate=0;}
