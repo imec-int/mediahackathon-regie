@@ -14,7 +14,12 @@ html
 		script(type='text/javascript', src='/javascripts/smartphone.js')
 
 	body
-		#overlay
-			img#overlayimg(src="#{overlay}")
+		if overlay
+			#overlay
+				img#overlayimg(src="#{overlay}")
+		else
+			#overlay(style="display:none")
+				img#overlayimg(src="#{overlay}")
+
 		#iFrameContainer
 			iframe(src="#{iframeurl}")
