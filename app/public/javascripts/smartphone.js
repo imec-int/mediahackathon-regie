@@ -2,6 +2,7 @@ var Smartphone = function (options){
 
 	var socket = null;
 	var $iframe = $('iframe');
+	var $iframecontainer = $('#iFrameContainer');
 
 	var init = function (){
 		console.log("init");
@@ -11,11 +12,14 @@ var Smartphone = function (options){
 		$(window).on("load resize orientationchange", function (event) {
 			setIframeSize();
 		});
+		setIframeSize();
 	};
 
 	var setIframeSize = function () {
-		$iframe.height( window.height() );
-		$iframe.width( window.width() );
+		$iframecontainer.width( $(window).width() );
+		$iframecontainer.height( $(window).height() );
+
+		// alert( $iframecontainer.height() );
 	};
 
 	var initSocket = function (){
