@@ -4,7 +4,7 @@ exports.hacks = [
 		title      : 'voting app',
 		smartphone : 'http://172.16.15.10:8080',
 		overlay    : null,
-		svo        : ['/images/svo/Oscilloscope_scherm1.png'],
+		svo        : ['/images/svo/Epleptic_scherm1.png'],
 		svostate   : 0
 	},
 	{
