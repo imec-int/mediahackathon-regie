@@ -83,7 +83,7 @@ app.get('/', function (req, res){
 	});
 });
 
-app.get('/regie', function (req, res){
+app.get('/regie7512', function (req, res){
 	res.render('controller', {
 		title: 'mixapp.be | Regie',
 		hacks: config.hacks
