@@ -19,12 +19,13 @@ html
 			.row
 				h1 Hack Controller
 			.hacks.row
-				each hack in hacks
+				each hack, i in hacks
 					.col-md-2
 						.row
 							button.col-xs-2.resetstate.btn.btn-lg(id='#state{hack.id}', onClick='controller.statereset("#{hack.id}");')
 								span R
-							button.col-xs-8.col-xs-offset-2.hack.btn.btn-lg.btn-primary(id='#{hack.id}', onClick='controller.showhack("#{hack.id}");')
+							h1.col-xs-2 #{i}
+							button.col-xs-8.hack.btn.btn-lg.btn-primary(id='#{hack.id}', onClick='controller.showhack("#{hack.id}");')
 								span #{hack.title}
 								span.badge.pull-right(id='#{hack.id}'+'stats')
 
@@ -40,4 +41,3 @@ html
 				#lights.col-xs-4
 					button.btn.btn-large.btn-warning
 						span lights
-		
