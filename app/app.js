@@ -102,6 +102,12 @@ app.get('/oschack', function (req, res){
 	});
 });
 
+app.get('/voting', function (req, res){
+	res.render('voting', {
+		title: 'mixapp.be | oscilloscoop',
+	});
+});
+
 io.sockets.on('connection', function (newSocket) {
 	// let's define 2 rooms: smartphone & controller
 	newSocket.on('room', function (room) {

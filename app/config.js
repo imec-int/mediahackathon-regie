@@ -2,7 +2,7 @@ exports.hacks = [
 	{
 		id         : 'voting',
 		title      : 'voting app',
-		smartphone : 'http://172.16.15.10:8080',
+		smartphone : '/voting',
 		overlay    : null,
 		svo        : ['/images/svo/Epleptic_scherm1.png'],
 		svostate   : 0
