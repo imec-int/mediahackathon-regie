@@ -2,7 +2,7 @@ exports.hacks = [
 	{
 		id         : 'voting',
 		title      : 'voting app',
-		smartphone : 'http://mixapp.be:8080',
+		smartphone : 'http://172.16.15.10:8080',
 		overlay    : null,
 		svo        : ['/images/svo/Oscilloscope_scherm1.png'],
 		svostate   : 0
