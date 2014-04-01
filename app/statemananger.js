@@ -24,7 +24,7 @@ function saveState (state){
 	if(isSavingSate)
 		return; //anders krijgen we corrupte files
 
-	console.log("> saving state");
+	// console.log("> saving state");
 	isSavingSate = true;
 	fs.writeFile( STATEFILE, JSON.stringify(state), function (err) {
 		if(err) console.log(err);

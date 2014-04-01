@@ -158,6 +158,7 @@ function controllerConnected (socket) {
 		// console.log(hack);
 
 		if(hack.svostate == 0){
+			// console.log('> iolight.hackevent', id);
 			iolight.emit('hackevent', id);
 			io.sockets.in('smartphone').emit('changeiframe', {url: hack.smartphone, title: hack.title, id: hack.id, overlay: hack.overlay} );
 		}
@@ -215,7 +216,7 @@ function pushStatsToController () {
 		'controllers' : io.sockets.clients('controller').length,
 		usersPerHack  : usersPerHack
 	}
-	console.log(stats);
+	// console.log(stats);
 
 	io.sockets.in('controller').emit('stats', stats);
 
