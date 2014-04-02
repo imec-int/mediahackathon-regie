@@ -1,5 +1,4 @@
 lib-cov
-*.log
 *.csv
 *.dat
 *.out
