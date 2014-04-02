@@ -1,0 +1,10 @@
+{
+  "name": "loganalyzer",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "underscore": "~1.6.0"
+  }
+}
