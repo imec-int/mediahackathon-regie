@@ -43,6 +43,7 @@ we hadden kunnen sommige hacks (zoals mediagoo & pale eyes) enkel voor een maxim
 
 ##epleptic
 veel last minute aanpassingen, was goed zolang de mididata doorkwam. CDD hadden echter niet op alle tracks genoeg data of het was het verkeerde kanaal. mensen hielden telefoon naar zichzelf gericht, ik dat dat iedereen dat naar het podium ging richten.
+Audio
 
 ##pale eyes
 effect als het werkt 5/5 
@@ -61,4 +62,4 @@ degenen die het snapten waren onder de indruk van idee en uitwerking
 dit is de enige interactieve hack die nooit platgegaan is (epleptic eigenlijk ook niet maar had te lijden onder tracks zonder midi data en was toen onbruikbaar)
 
 ##oscilloscoop
-offline/fallback, werkte goed ook de midi lichten hier aan toegevoegd deden hun ding. De hack had wel bediening nodig, maar kan in princioe via midi aangestuurd worden vanuit de CDD setup.
+offline en vaak fallback, werkte goed. Ook de midi lichten hier aan toegevoegd deden hun ding. De hack had wel bediening nodig, maar kan in princioe via midi aangestuurd worden vanuit de CDD setup.
