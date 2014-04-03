@@ -1,3 +1,49 @@
+## Voting-app
+* Eerste fout: draaide op zelfde machine als mixapp.be
+    * voting-app liet dus machine crashen waardoor mixapp.be onbereikbaar was.
+    * hadden we dit op verschillende machines gedraaid, dan ging mixapp.be nog laden en konden we een 'even geduld, we zitten met een probleem'-scherm laten zien ;-)
+
+### Load testen
+* Lunar Gravity zegt dat ze load testen gedaan hebben.
+* Zelf hebben we er nu ook gedaan:
+
+    ```ab -r -k -c 25 -n 1000 http://10.100.11.206:8080/```
+
+    * not loaded
+        * Apache neemt 102,4 MB RAM in beslag
+        * 9 ```httpd```-processen draaien
+        
+    * 25 concurrent requests
+        * max load 327,68 MB RAM
+        * max 39 concurrent ```httpd```-processen
+        * werkbaar
+
+    * 50 concurrent requests
+        * max load 645,12 MB RAM
+        * max 71 concurrent ```httpd```-processen
+        * werkbaar, resultaten laden wel traag
+
+    * 100 concurrent requests
+        * max load 1230,24 MB RAM
+        * max 134 concurrent ```httpd```-processen
+        * gaat traag, resultaten laden in schokjes
+
+    * 150 concurrent requests
+        * max load 1563,24 MB RAM
+        * max 165 concurrent ```httpd```-processen
+        * gaat traag, niet echt werkbaar
+
+    * 300 concurrent requests
+        * machine hangt vast!
+
+
+(tussen de testen heen werden de services herstart)
+
+
+
+
+
+
 #technical debrief regie voting/hacks op YIB2L
 ##netwerk
 heel veel geconnecteerde phones (simultaan zeker meer dan 180) @Sam, hoeveel unieke?
