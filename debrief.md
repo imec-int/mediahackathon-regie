@@ -133,3 +133,4 @@ Heeft heel de tijd gewerkt, was goed voorzien  op mogelijkheden van licht, maar 
 * kritische apps (voting in dit geval) op backup machine en een manier om er eenvoudig naar de switchen
 * SVO switchen en smartphone-switchen loskoppelen zodat SVOs appart gezet kunnen worden.
 * Minder snel van hack switchen. Probleem was hier dat er geswitcht werd telkens een hack het begaf.
+* load testen ;-)
