@@ -24,6 +24,10 @@ Apple heeft namelijke een limiet op het aantal open bestanden gezet. Telkens er 
 
 Een betere oplossing hiervoor is om de apps in productie modus te zetten, waardoor bestanden 1 keer geladen worden en daarna in geheugen worden bijgehouden.
 
+Dit verhoogt de performantie enorm: wanneer we bijv. requests afvuren op de clientpagina van MediaGoo draaiende op de MacMini, krijgen we (met verhoogde ulimit) iets van een 90req/s die correct afgehandeld worden (=HTTP 200) indien we NIET in production mode staan. (Zonder verhoogde ulimit krijgen we direct de too many open files error; niet zeer zinvol)
+
+Als we wel in production mode staan, verhoogt het aantal HTTP 200/s naar >2000. Het lijkt echter het veiligst ook hier de ulimit te verhogen; anders krijgen we toch nog errors (~30 timeouts/s bij het opzetten van een nieuwe connectie (geen HTTP error), vermoedelijk een timeout aan te passen in de benchmarking tool (tsung))
+
 Hacks die hierop crashten:
 * MediaGoo
 * Pale Eyes (Phiemel)
