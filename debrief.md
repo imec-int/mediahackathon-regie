@@ -1,115 +1,135 @@
-## Voting-app
-* Eerste fout: draaide op zelfde machine als mixapp.be
+## Algemeen
+* Voting-app draaide op zelfde machine als mixapp.be
     * voting-app liet dus machine crashen waardoor mixapp.be onbereikbaar was.
     * hadden we dit op verschillende machines gedraaid, dan ging mixapp.be nog laden en konden we een 'even geduld, we zitten met een probleem'-scherm laten zien ;-)
 
+
+## Netwerk
+* Netwerk was dik OK! Ward ([InAnyEvent](http://www.inanyevent.be/)) heeft dat super gedaan. 
+* max 260 connected devices.
+* geen overschrijdingen van up/down
+    * max 13 MB/s down
+    * max 5 MB/s up
+    
+
+## mixapp.be
+* 139 unieke toestellen op de online versie van mixapp.be
+* 214 unieke toestellen op lokale versie van mixapp.be
+* 191 maximum gelijktijdige verbindingen op mixapp.be (gebeurde tijdens de hackathon)
+
+## "too many open files"
+Naast de problemen met de voting-app, ondervonden mixapp.be en 3 hacks ook een probleem. Namelijk ```"Error: EMFILE, too many open files" in Node.js```.
+
+Apple heeft namelijke een limiet op het aantal open bestanden gezet. Telkens er een request voor een pagina binnenkwam werd hiervoor een bestand geopend. Bij mixapp.be werd dit snel gefixt door die limiet te verhogen met ```ulimit -S -n 10240``` maar bij de hacks werd dit pas naar het einde van het optreden toe ontdekt.
+
+Een betere oplossing hiervoor is om de apps in productie modus te zetten, waardoor bestanden 1 keer geladen worden en daarna in geheugen worden bijgehouden.
+
+Hacks die hierop crashten:
+* MediaGoo
+* Pale Eyes (Phiemel)
+* Hexamusic
+
+Hacks die zonder problemen blijven draaien zijn:
+* Epleptic
+* Sound Defender
+* Ossciloscoop (geen pc voor nodig)
+
+### Oplossingen
+
+Limieten verhogen:
+
+    ulimit -S -n 10240
+
+Node instellen op production mode
+
+    NODE_ENV=production node app.js
+
+Zorgt ervoor dat de templates (jade, stylus) maar 1x gelezen worden (anders gebeurt dit blijkbaar elke request!). Epleptic en Sound Defender gebruikten html ipv jade en daar kwam de fout niet voor.
+
+
+## Voting-app
+* Werkt met Apache/MySQL/PHP
+* We gebruikten hier een MAMP-stack op een iMac
+
 ### Load testen
-* Lunar Gravity zegt dat ze load testen gedaan hebben.
-* Zelf hebben we er nu ook gedaan:
+Enkele load testen met [ab](http://httpd.apache.org/docs/2.2/programs/ab.html):
 
-    ```ab -r -k -c 25 -n 1000 http://10.100.11.206:8080/```
+    ab -r -k -c 25 -n 1000 http://10.100.11.206:8080/
 
-    * machine
-        * 2.7Ghz Intel Core i5        
-        * 4GB RAM 1333Mhz DDR3
+ * machine
+    * 2.7Ghz Intel Core i5        
+    * 4GB RAM 1333Mhz DDR3
 
-    * not loaded
-        * Apache neemt 102,4 MB RAM in beslag
-        * 9 ```httpd```-processen draaien
+* not loaded
+    * Apache neemt 102,4 MB RAM in beslag
+    * 9 ```httpd```-processen draaien
         
-    * 25 concurrent requests
-        * max load 327,68 MB RAM
-        * max 39 concurrent ```httpd```-processen
-        * werkbaar
+* 25 concurrent requests
+    * max load 327,68 MB RAM
+    * max 39 concurrent ```httpd```-processen
+    * werkbaar
 
-    * 50 concurrent requests
-        * max load 645,12 MB RAM
-        * max 71 concurrent ```httpd```-processen
-        * werkbaar, resultaten laden wel traag
+* 50 concurrent requests
+    * max load 645,12 MB RAM
+    * max 71 concurrent ```httpd```-processen
+    * werkbaar, resultaten laden wel traag
 
-    * 100 concurrent requests
-        * max load 1230,24 MB RAM
-        * max 134 concurrent ```httpd```-processen
-        * gaat traag, resultaten laden in schokjes
+* 100 concurrent requests
+    * max load 1230,24 MB RAM
+    * max 134 concurrent ```httpd```-processen
+    * gaat traag, resultaten laden in schokjes
 
-    * 150 concurrent requests
-        * max load 1563,24 MB RAM
-        * max 165 concurrent ```httpd```-processen
-        * gaat traag, niet echt werkbaar
+* 150 concurrent requests
+    * max load 1563,24 MB RAM
+    * max 165 concurrent ```httpd```-processen
+    * gaat traag, niet echt werkbaar
 
-    * 300 concurrent requests
-        * machine hangt vast!
-
+* 300 concurrent requests
+    * machine hangt vast!
+    * herstarten is nodig
 
 (tussen de testen heen werden de services herstart)
 
+#### Mogelijke oplossingen
+* [MaxClients hoger zetten](http://www.genericarticles.com/mediawiki/index.php?title=How_to_optimize_apache_web_server_for_maximum_concurrent_connections_or_increase_max_clients_in_apache)
+    * Om te testen op 600 gezet
+    * Hiermee raken we aan 600 connecties. De machine loopt dan wel een beetje vast, maar komt er na de load test wel terug door.
+    * langste request doet er 98 seconden over
+* Op een zwaardere machine draaien (want het probleem is dat het geheugen opgelokt wordt bij iedere connectie)
+* Verdelen over meerdere servers met load balancers
+
+### Interval polling
+
+In de client code werd ```setInterval(jsApp.fetchCurrent, 1000)``` gebruikt. Dat betekent dat hij elke seconde een request naar de server lanceert. Tijdens het voten werd dit nog verzet naar ```setInterval(jsApp.fetchCurrent, 2000)```waardoor hij om de 2 seconden een request naar de server lanceert. Maar dat mocht niet baten.
+
+Het probleem is, als de server vast hangt, hij sowieso na 2 seconden opnieuw een request doet naar de server. Onafhankelijk van het feit of hij de vorige keer een antwoord gekregen heeft of niet!
+
+Zo kunnen de requests zich vlug opstapelen. Als de server een halve minuut niet antwoord, dan zijn er ondertussen 15 requests naar de server gelanceerd die de server allemaal nog moet afhandelen. Als bij 50 mensen de verbinding geblokeerd is voor 30 seconden, komen hier 50x15 = 750 connecties bij die de server nog allemaal moet afhandelen. De load stapelt zich dus alleen maar op! 
+
+Een betere oplossing was geweest om telkens na een antwoord van de server een ```setTimeout(jsApp.fetchCurrent,2000)``` te gebruiken. Zo wordt gewacht op de server vooraleer een nieuwe request te lanceren.
+
+Een nog betere oplossing is om long polling of zelfs websockets te gebruiken. Waarbij maar 1 request per client wordt gemaakt en alle data over die websocket naar de client vloeit. Zo vermijd je de overhead die een interval-request met zich meebrengt.
 
 
 
+## MIDI signaal
+Op het podium stond een macmini die het MIDI-signaal over het netwerk to bij de hacks bracht. Dit werkte perfect, net zoals op de hackathon.
+
+Het enige nadeel was dat de Compact Disk Dummies niet voor ieder liedje MIDI genereren. Maar dat had Janus op de doorloop de week ervoor nog verteld.
+
+Hacks die gebruik maakten van MIDI:
+* Epleptic
+* Sound Defender
+* Hexamusic (zonder MIDI-signaal werkt het ook, maar dan 'danst' de visualisatie niet op het ritme van de muziek)
+
+## AB lights project
+Heeft heel de tijd gewerkt, was goed voorzien  op mogelijkheden van licht, maar er was te weing tijd om de lichttafel volledig te programmeren, niemand heeft dat gemerkt. Is dat nu gebruikt?
 
 
-#technical debrief regie voting/hacks op YIB2L
-##netwerk
-heel veel geconnecteerde phones (simultaan zeker meer dan 180) @Sam, hoeveel unieke?
-dwz passwoord was geen enkel probleem ook het idee van de mensen MOETEN via de wifi en niet via 3G was duidelijk en heeft gewerkt. Ik heb niet de indruk dat de wifi onder capaciteit was, kunnen we dit staven met numbers?
-Wel heb ik het vermoeden gehad dat de externe link ofwel onder capaciteit was ofwel er soms uitlag. Graag duidelijkheid hierover van IT.
 
-###some numbers plz
-- max aantal connecties
-- aantal unieke
-- ...
-
-
-##regie-app
-
-###opstelling
-aparte server verplicht, ook al was de service niet zwaar en konden we die combineren met een andere hack/svo/voting dit betekend dat als 1 van de servers crashed (MAMP) dat we moeten heel de machine herstarten en dus heel de boel offline nemen.
-Steeds de node processen starten in een screen (zoals sam uiteindelijk gedaan heeft tijdens de show) en ssh enablen zodat we remote kunnen ingrijpen.
-
-capaciteit. Regie app zelf ging de eerste keer op de knieen door de MAMP (zoals voorspeld wie gebruikt er nu interval polling in 2014?) wat we beter hadden kunnen doen was deze twee op aparte machines draaien. nog beter was dit NIET uitbesteden denk ik.
-
-Het spreiden van de switch over 3 sec heeft geen zin als iedereen interval polling doet. 
-
-het zetten van SVOs moet apart van het switchen kunnen gaan, maar dat is een verbetering, niet echt een probleem geweest in de regie.
-
-commentaar uit de zaal over de regie was dat het switchen te snel na elkaar ging. We hebben dit gedaan omdat de hacks regelmatig crashten en het geen zin had om de mensne op de hacks te laten.
-
-##mix-midi
-worked as intended, maar CDD hebben niet bij ieder nummer midi doorgestuurd, wat wel de afspraak was. Last minute aanpassing is voor artist stresserend en dus niet op aangedrongen. 
-Voor de rest geen issues. 
-
-##hackABlights
-heeft heel de tijd gewerkt, was goed voorzien  op mogelijkheden van licht, maar er was te weing tijd om de lichttafel volledig te programmeren, niemand heeft dat gemerkt.
-
-##voting
-- wrong software technology
-- wrong hardware
-- bad design choices
-- geen load testing gedaan (onze fout? wat was gevraagd?)
-
-##hacks algemeen
-we hadden kunnen sommige hacks (zoals mediagoo & pale eyes) enkel voor een maximum aantal mensen activeren (en de andere mensen een wachtscherm geven) wat de schaalbaarheid en de effecten ten goede had kunnen komen. Communicatie met overlays was heel duidelijk. Er hebben heel veel mensen meegedaan (of misschien beter proberen meedoen).
-
-
-##epleptic
-veel last minute aanpassingen, was goed zolang de mididata doorkwam. CDD hadden echter niet op alle tracks genoeg data of het was het verkeerde kanaal. mensen hielden telefoon naar zichzelf gericht, ik dat dat iedereen dat naar het podium ging richten.
-Audio
-
-##pale eyes
-effect als het werkt 5/5 
-werkte pas bij <60 mensen geconnecteerd
-
-##hexamusic
-externe connectie weg? zelden tweets te zien...daardoor hebben we de hack minder vaak getoond.
-
-##mediagoo
-heeft pas gewerkt bij heel weinig connected people (<40)
-effect heel goed op groot scherm
-
-##sounddefender
-2 soorten mensen, zij die het snappen en zij die het niet snappen. ca 50/50
-degenen die het snapten waren onder de indruk van idee en uitwerking
-dit is de enige interactieve hack die nooit platgegaan is (epleptic eigenlijk ook niet maar had te lijden onder tracks zonder midi data en was toen onbruikbaar)
-
-##oscilloscoop
-offline en vaak fallback, werkte goed. Ook de midi lichten hier aan toegevoegd deden hun ding. De hack had wel bediening nodig, maar kan in princioe via midi aangestuurd worden vanuit de CDD setup.
+## Hadden we nog moeten doen
+* op afstand toegang tot iedere iMac zodat we niet telkens de visualisatie moesten minimaliseren om de hack te herstarten.
+* elke app op een apparte machine
+* kritische apps (voting in dit geval) op backup machine en een manier om er eenvoudig naar de switchen
+* SVO switchen en smartphone-switchen loskoppelen zodat SVOs appart gezet kunnen worden.
+* Minder snel van hack switchen. Probleem was hier dat er geswitcht werd telkens een hack het begaf.
