@@ -9,6 +9,10 @@
 
     ```ab -r -k -c 25 -n 1000 http://10.100.11.206:8080/```
 
+    * machine
+        * 2.7Ghz Intel Core i5        
+        * 4GB RAM 1333Mhz DDR3
+
     * not loaded
         * Apache neemt 102,4 MB RAM in beslag
         * 9 ```httpd```-processen draaien
