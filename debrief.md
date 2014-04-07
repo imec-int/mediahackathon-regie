@@ -1,3 +1,5 @@
+![Header](http://mixbe.github.com/mediahackathon-regie/regielang.jpg)
+
 ## Algemeen
 * Voting-app draaide op zelfde machine als mixapp.be
     * voting-app liet dus machine crashen waardoor mixapp.be onbereikbaar was.
@@ -16,6 +18,11 @@
 * 139 unieke toestellen op de online versie van mixapp.be
 * 214 unieke toestellen op lokale versie van mixapp.be
 * 191 maximum gelijktijdige verbindingen op mixapp.be (gebeurde tijdens de hackathon)
+
+
+![mixapponline](http://mixbe.github.com/mediahackathon-regie/mixapponline.jpg)
+
+![Connectedphones](http://mixbe.github.com/mediahackathon-regie/connectedphones.jpg)
 
 ## "too many open files"
 Naast de problemen met de voting-app, ondervonden mixapp.be en 3 hacks ook een probleem. Namelijk ```"Error: EMFILE, too many open files" in Node.js```.
