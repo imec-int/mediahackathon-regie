@@ -134,7 +134,7 @@ Hacks die gebruik maakten van MIDI:
 * Hexamusic (zonder MIDI-signaal werkt het ook, maar dan 'danst' de visualisatie niet op het ritme van de muziek)
 
 ## AB lights project
-Heeft heel de tijd gewerkt, was goed voorzien  op mogelijkheden van licht, maar er was te weing tijd om de lichttafel volledig te programmeren, niemand heeft dat gemerkt. Is dat nu gebruikt?
+Heeft heel de tijd gewerkt, was goed voorzien  op mogelijkheden van licht, maar er was te weing tijd om de lichttafel volledig te programmeren, niemand heeft dat gemerkt.
 
 
 
